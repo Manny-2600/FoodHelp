@@ -184,13 +184,10 @@
                 return false;
             } else {
                 errorMessage.style.display = 'none';
-                                // For a GET request
-                fetch('http://localhost:5000')
-                .then(response => response.text())
-                .then(data => console.log(data));
+
 
                 // For a POST request with JSON data
-                fetch('http://localhost:5000', {
+                fetch('http://localhost:5000/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
