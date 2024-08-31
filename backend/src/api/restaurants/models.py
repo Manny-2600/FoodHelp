@@ -6,7 +6,7 @@ from src import db
 
 
 
-class restuarant(db.Model):
+class Restuarant(db.Model):
     __restuarants_ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
