@@ -10,12 +10,8 @@ def get_restuarant_by_id(restuarant_id):
     return restuarant.query.filter_by(id=restuarant_id).first()
 
 
-# get avg review rating by id (restaurant id)
-
-# get restaurant by name
-
-
-# get restaurant by cuisine sorted by rating
+def get_restuarant_by_email(email):
+    return restuarant.query.filter_by(email=email).first()
 
 
 def add_restuarant(restuarantname, email):
