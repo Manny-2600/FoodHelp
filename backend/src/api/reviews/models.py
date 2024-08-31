@@ -9,17 +9,13 @@ class Reviews(db.Model):
     __tablename__ = "reviews"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    rating = db.Column(db.String(128), nullable=False)
-    active = db.Column(db.Boolean(), default=True, nullable=False)
-    created_date = db.Column(db.DateTime, default=func.now(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    restaurant_id = db.Column(
+        db.Integer, db.ForeignKey("restaurants.id"), nullable=False
+    )
+    rating = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, rating):
+    def __init__(self, user_id, restaurant_id, rating):
+        self.user_id = user_id
+        self.restaurant_id = restaurant_id
         self.rating = rating
-        
-
-
-if os.getenv("FLASK_ENV") == "development":
-    from src import admin
-    from src.api.users.admin import UsersAdminView
-
-    admin.add_view(UsersAdminView(User, db.session))
