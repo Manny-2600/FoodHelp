@@ -168,6 +168,21 @@
                 return false;
             } else {
                 errorMessage.style.display = 'none';
+                                // For a GET request
+                fetch('http://localhost:5000')
+                .then(response => response.text())
+                .then(data => console.log(data));
+
+                // For a POST request with JSON data
+                fetch('http://localhost:5000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ key: 'value' })
+                })
+                .then(response => response.text())
+                .then(data => console.log(data));
                 return true;
             }
         }
