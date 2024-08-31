@@ -14,13 +14,7 @@ class User(db.Model):
     cuisine = db.Column(db.String(128), nullable=False)
     
    
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
+    def __init__(self, restuarant_name, cuisine):
+        self.restuarant_name = restuarant_name
+        self.cuisine = cuisine
 
-
-if os.getenv("FLASK_ENV") == "development":
-    from src import admin
-    from src.api.users.admin import UsersAdminView
-
-    admin.add_view(UsersAdminView(User, db.session))
