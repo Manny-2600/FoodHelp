@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <style>
+        /* Common styles for both pages */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -14,25 +15,27 @@
             height: 100vh;
             margin: 0;
         }
-        .signup-container {
+        .container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .signup-container h2 {
+        .container h2 {
             text-align: center;
             margin-bottom: 20px;
         }
-        .signup-container input[type="text"], .signup-container input[type="email"], .signup-container input[type="password"] {
+        .container input[type="text"], 
+        .container input[type="email"], 
+        .container input[type="password"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .signup-container input[type="submit"] {
+        .container input[type="submit"] {
             width: 100%;
             padding: 10px;
             background-color: #4CAF50;
@@ -42,7 +45,7 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        .signup-container input[type="submit"]:hover {
+        .container input[type="submit"]:hover {
             background-color: #45a049;
         }
         .error {
@@ -52,10 +55,18 @@
             margin-bottom: 10px;
             display: none;
         }
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <div class="signup-container">
+    <div class="container">
         <h2>Sign Up</h2>
         <form id="signupForm" onsubmit="return validateForm()">
             <label for="name">Full Name</label>
@@ -73,6 +84,10 @@
             <span id="error-message" class="error">Passwords do not match!</span>
 
             <input type="submit" value="Sign Up">
+
+            <div class="link">
+                Already have an account? <a href="login.html">Login here</a>
+            </div>
         </form>
     </div>
 

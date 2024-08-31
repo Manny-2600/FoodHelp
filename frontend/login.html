@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
+        /* Reusing common styles for both pages */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -14,25 +15,26 @@
             height: 100vh;
             margin: 0;
         }
-        .login-container {
+        .container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
         }
-        .login-container h2 {
+        .container h2 {
             text-align: center;
             margin-bottom: 20px;
         }
-        .login-container input[type="email"], .login-container input[type="password"] {
+        .container input[type="email"], 
+        .container input[type="password"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .login-container input[type="submit"] {
+        .container input[type="submit"] {
             width: 100%;
             padding: 10px;
             background-color: #4CAF50;
@@ -42,7 +44,7 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        .login-container input[type="submit"]:hover {
+        .container input[type="submit"]:hover {
             background-color: #45a049;
         }
         .error {
@@ -52,10 +54,18 @@
             margin-bottom: 10px;
             display: none;
         }
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="container">
         <h2>Login</h2>
         <form id="loginForm" onsubmit="return validateLogin()">
             <label for="email">Email</label>
@@ -67,6 +77,10 @@
             <span id="error-message" class="error">Please fill in both fields!</span>
 
             <input type="submit" value="Login">
+
+            <div class="link">
+                Don't have an account? <a href="signup.html">Sign up here</a>
+            </div>
         </form>
     </div>
 
