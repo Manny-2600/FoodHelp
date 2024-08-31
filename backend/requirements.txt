@@ -5,3 +5,9 @@ Flask-SQLAlchemy==3.1.1
 gunicorn==21.2.0
 psycopg2-binary==2.9.9
 Werkzeug==2.3.8
+flask-bcrypt==1.0.1
+PyJWT==2.8.0
+GeoAlchemy2==0.13.1
+Shapely==2.0.1
+requests==2.31.0
+flask-cors==4.0.1
