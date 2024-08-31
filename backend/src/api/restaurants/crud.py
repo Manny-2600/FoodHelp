@@ -10,25 +10,21 @@ def get_restuarant_by_id(restuarant_id):
     return restuarant.query.filter_by(id=restuarant_id).first()
 
 
-def get_restuarant_by_email(email):
-    return restuarant.query.filter_by(email=email).first()
+def get_restuarant_by_cuisine(cuisine):
+    return restuarant.query.filter_by(cuisine=cuisine).first()
 
 
-def add_restuarant(restuarantname, email):
-    restuarant = restuarant(restuarantname=restuarantname, email=email)
+def add_restuarant(restuarantname, cuisine):
+    restuarant = restuarant(restuarantname=restuarantname, cuisine=cuisine)
     db.session.add(restuarant)
     db.session.commit()
     return restuarant
 
 
-def update_restuarant(restuarant, restuarantname, email):
+def update_restuarant(restuarant, restuarantname, cuisine):
     restuarant.restuarantname = restuarantname
-    restuarant.email = email
+    restuarant.cuisine = cuisine
     db.session.commit()
     return restuarant
 
 
-def delete_restuarant(restuarant):
-    db.session.delete(restuarant)
-    db.session.commit()
-    return restuarant
