@@ -184,14 +184,6 @@
                 return false;
             } else {
                 errorMessage.style.display = 'none';
-                fetch('http://localhost:5000/ping').then(response => response.text())
-                    .then(data => {
-                        console.log(data);
-                        console.log("HELLO!");
-
-                    });
-
-
                 // For a POST request with JSON data
                 fetch('http://localhost:5000/api/users', {
                     method: 'POST',
