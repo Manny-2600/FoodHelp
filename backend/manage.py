@@ -17,9 +17,15 @@ def recreate_db():
 
 @cli.command("seed_db")
 def seed_db():
-    db.session.add(User(username="michael", email="hermanmu@gmail.com"))
-    db.session.add(User(username="michaelherman", email="michael@mherman.org"))
+    db.session.add(
+        User(username="test", email="test@cornell.edu", password="password123")
+    )
+    db.session.add(
+        User(username="test123", email="test123@cornell.edu", password="password123")
+    )
     db.session.commit()
+
+    # TODO: Populate restaurant data here
 
 
 if __name__ == "__main__":

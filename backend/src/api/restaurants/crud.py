@@ -26,5 +26,3 @@ def update_restuarant(restuarant, restuarantname, cuisine):
     restuarant.cuisine = cuisine
     db.session.commit()
     return restuarant
-
-
