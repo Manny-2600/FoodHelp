@@ -9,9 +9,9 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 
 # instantiate the extensions
 db = SQLAlchemy()
-admin = Admin(template_mode="bootstrap3")
 cors = CORS()
 bcrypt = Bcrypt()
+admin = Admin(template_mode="bootstrap3")
 
 
 def create_app(script_info=None):
@@ -20,11 +20,17 @@ def create_app(script_info=None):
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 
     # set config
+    os.environ["APP_SETTINGS"] = "src.config.DevelopmentConfig"
+    os.environ["FLASK_ENV"] = "development"
+
     app_settings = os.getenv("APP_SETTINGS")
+
+    # app_settings = "src.config.DevelopmentConfig"
+
     app.config.from_object(app_settings)
-    # ADDED
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///reddit_clone.db"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # # ADDED
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///reddit_clone.db"
+    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # set up extensions
     db.init_app(app)
