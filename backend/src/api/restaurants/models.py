@@ -14,7 +14,7 @@ class Restuarant(db.Model):
     cuisine = db.Column(db.String(128), nullable=False)
     
    
-    def __init__(self, restuarant cuisine):
+    def __init__(self, restuarant, cuisine):
         self.restuarant= restuarant
         self.cuisine = cuisine
 
