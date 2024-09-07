@@ -10,25 +10,32 @@ def get_reviews_by_id(review_id):
     return Review.query.filter_by(id=review_id).first()
 
 
-def get_user_by_email(email):
-    return User.query.filter_by(email=email).first()
+def get_reviews_by_restaurant(restaurant_id):
+    return Review.query.filter_by(restaurant_id=restaurant_id).all()
 
 
-def add_user(username, email, password):
-    user = User(username=username, email=email, password=password)
-    db.session.add(user)
+def get_reviews_by_user(user_id):
+    return Review.query.filter_by(user_id=user_id).all()
+
+
+def get_reviews_composite(user_id, restaurant_id):
+    return Review.query.filter_by(user_id=user_id, restaurant_id=restaurant_id).all()
+
+
+def add_review(user_id, restaurant_id, rating):
+    review = Review(user_id=user_id, restaurant_id=restaurant_id, rating=rating)
+    db.session.add(review)
     db.session.commit()
-    return user
+    return review
 
 
-def update_user(user, username, email):
-    user.username = username
-    user.email = email
+def update_review(review, rating):
+    review.rating = rating
     db.session.commit()
-    return user
+    return review
 
 
-def delete_user(user):
-    db.session.delete(user)
+def delete_review(review):
+    db.session.delete(review)
     db.session.commit()
-    return user
+    return review
