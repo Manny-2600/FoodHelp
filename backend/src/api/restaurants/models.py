@@ -7,7 +7,7 @@ from src import db
 
 
 class Restuarant(db.Model):
-    __restuarants_ = "users"
+    __tablename__ = "restaurants"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     restuarant= db.Column(db.String(128), nullable=False)
