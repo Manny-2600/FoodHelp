@@ -6,7 +6,7 @@ def get_all_reviews():
     return Review.query.all()
 
 
-def get_reviews_by_id(review_id):
+def get_review_by_id(review_id):
     return Review.query.filter_by(id=review_id).first()
 
 
