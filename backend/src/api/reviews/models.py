@@ -13,6 +13,7 @@ class Reviews(db.Model):
     restaurant_id = db.Column(
         db.Integer, db.ForeignKey("restaurants.id"), nullable=False
     )
+    created_date = db.Column(db.DateTime, default=func.now(), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
 
     def __init__(self, user_id, restaurant_id, rating):
