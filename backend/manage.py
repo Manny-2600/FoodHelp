@@ -27,11 +27,11 @@ def seed_db():
     db.session.commit()
 
     # TODO: Populate restaurant data here
-    db.session.add(Restaurant(name="McDonalds", cuisine="Fast Food"))
+    db.session.add(Restaurant("McDonalds", "Fast Food"))
 
-    db.session.add(Restaurant(name="BurgerKing", cuisine="Fast Food"))
+    db.session.add(Restaurant("BurgerKing", "Fast Food"))
 
-    db.session.add(Restaurant(name="Applebees", cuisine="American"))
+    db.session.add(Restaurant("Applebees", "American"))
     db.session.commit()
 
 
