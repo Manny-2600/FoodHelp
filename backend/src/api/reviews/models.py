@@ -20,3 +20,10 @@ class Reviews(db.Model):
         self.user_id = user_id
         self.restaurant_id = restaurant_id
         self.rating = rating
+
+
+if os.getenv("FLASK_ENV") == "development":
+    from src import admin
+    from src.api.reviews.admin import ReviewsAdminView
+
+    admin.add_view(ReviewsAdminView(Review, db.session))

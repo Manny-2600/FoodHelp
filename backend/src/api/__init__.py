@@ -4,7 +4,8 @@ from src.api.ping import ping_namespace
 from src.api.users.auth import auth_namespace
 from src.api.users.views import users_namespace
 from src.api.restaurants.views import restaurants_namespace
-from src.api.reviews.views import views_namespace
+from src.api.reviews.views import reviews_namespace
+
 
 api = Api(version="1.0", title="Users API", doc="/doc")
 
