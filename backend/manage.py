@@ -2,6 +2,7 @@ from flask.cli import FlaskGroup
 
 from src import create_app, db
 from src.api.users.models import User
+from src.api.restaurants.models import Restaurant
 
 
 app = create_app()
@@ -26,6 +27,12 @@ def seed_db():
     db.session.commit()
 
     # TODO: Populate restaurant data here
+    db.session.add(Restaurant(name="McDonalds", cuisine="Fast Food"))
+
+    db.session.add(Restaurant(name="BurgerKing", cuisine="Fast Food"))
+
+    db.session.add(Restaurant(name="Applebees", cuisine="American"))
+    db.session.commit()
 
 
 if __name__ == "__main__":
