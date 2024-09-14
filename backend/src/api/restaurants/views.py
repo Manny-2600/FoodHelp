@@ -2,10 +2,10 @@ from flask import request
 from flask_restx import Namespace, Resource, fields
 
 from src.api.restaurants.crud import (  # isort:skip
-    get_all_restuarants
-    get_restuarant_by_id
-    get_restuarants_by_rating 
-    add_restuarant
+    get_all_restuarants,
+    get_restuarant_by_id,
+    get_restuarants_by_rating, 
+    add_restuarant,
     update_restuarant
 
 )
