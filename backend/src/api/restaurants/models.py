@@ -3,7 +3,7 @@ from geoalchemy2 import Geography
 from src import db
 
 
-class Restuarant(db.Model):
+class Restaurant(db.Model):
 
     __tablename__ = "restaurants"
 
@@ -24,6 +24,6 @@ class Restuarant(db.Model):
 
 if os.getenv("FLASK_ENV") == "development":
     from src import admin
-    from src.api.restaurant.admin import RestaurantsAdminView
+    from src.api.restaurants.admin import RestaurantsAdminView
 
-    admin.add_view(RestaurantsAdminView(Restuarant, db.session))
+    admin.add_view(RestaurantsAdminView(Restaurant, db.session))

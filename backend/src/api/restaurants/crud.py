@@ -1,16 +1,16 @@
 from src import db
 
 from src.api.reviews.models import Review
-from src.api.restuarants.models import Restuarant
+from src.api.restaurants.models import Restaurant
 from sqlalchemy import func
 
 
 def get_all_restaurants():
-    return Restuarant.query.all()
+    return Restaurant.query.all()
 
 
 def get_restaurant_by_id(restuarant_id):
-    return Restuarant.query.filter_by(id=restuarant_id).first()
+    return Restaurant.query.filter_by(id=restuarant_id).first()
 
 
 def get_rating_by_id(restuarant_id):
@@ -21,11 +21,11 @@ def get_rating_by_id(restuarant_id):
 
 def get_restaurant_by_name(restaurant_name):
     # exact name search
-    return Restuarant.query.filter_by(name=restaurant_name).first()
+    return Restaurant.query.filter_by(name=restaurant_name).first()
 
 
 def add_restaurant(restuarantname, cuisine):
-    restuarant = Restuarant(name=restuarantname, cuisine=cuisine)
+    restuarant = Restaurant(name=restuarantname, cuisine=cuisine)
     db.session.add(restuarant)
     db.session.commit()
     return restuarant
@@ -40,7 +40,7 @@ def update_restaurant(restuarant, restuarantname, cuisine):
 
 def get_top_restaurants_by_cuisine(cuisine):
     # Query restaurants by cuisine
-    restaurant_list = Restuarant.query.filter_by(cuisine=cuisine).all()
+    restaurant_list = Restaurant.query.filter_by(cuisine=cuisine).all()
 
     # Sort the restaurant list by their average rating
     # We'll use the `get_rating_by_id` function to get the average rating of each restaurant
