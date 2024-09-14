@@ -5,8 +5,8 @@ from sqlalchemy.sql import func
 from src import db
 
 
-class Reviews(db.Model):
-    __tablename__ = "review"
+class Review(db.Model):
+    __tablename__ = "reviews"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
