@@ -11,8 +11,8 @@ class Restaurant(db.Model):
     name = db.Column(db.String, nullable=False)
     cuisine = db.Column(db.String(128), nullable=False)
 
-    def __init__(self, restuarant, cuisine):
-        self.restuarant = restuarant
+    def __init__(self, name, cuisine):
+        self.name = name
         self.cuisine = cuisine
 
     def serialize(self):
