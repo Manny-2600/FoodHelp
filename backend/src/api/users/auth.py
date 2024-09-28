@@ -52,7 +52,15 @@ class Register(Resource):
             auth_namespace.abort(400, "Sorry. That email already exists.")
 
         user = add_user(username, email, password)
-        return user, 201
+        # return user, 201
+        access_token = user.encode_token(user.id, "access")
+        refresh_token = user.encode_token(user.id, "refresh")
+
+        response_object = {
+            "access_token": access_token,  # decode(),
+            "refresh_token": refresh_token,  # .decode(),
+        }
+        return response_object, 201
 
 
 class Login(Resource):

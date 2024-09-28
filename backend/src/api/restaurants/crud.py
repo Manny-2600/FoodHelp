@@ -24,18 +24,18 @@ def get_restaurant_by_name(restaurant_name):
     return Restaurant.query.filter_by(name=restaurant_name).first()
 
 
-def add_restaurant(restuarantname, cuisine):
-    restuarant = Restaurant(name=restuarantname, cuisine=cuisine)
-    db.session.add(restuarant)
+def add_restaurant(name, cuisine):
+    restaurant = Restaurant(name=name, cuisine=cuisine)
+    db.session.add(restaurant)
     db.session.commit()
     return restaurant
 
 
-def update_restaurant(restuarant, restuarantname, cuisine):
-    restuarant.name = restuarantname
-    restuarant.cuisine = cuisine
+def update_restaurant(restaurant, name, cuisine):
+    restaurant.name = name
+    restaurant.cuisine = cuisine
     db.session.commit()
-    return restuarant
+    return restaurant
 
 
 def get_top_restaurants_by_cuisine(cuisine):
