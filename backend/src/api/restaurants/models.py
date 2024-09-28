@@ -6,15 +6,15 @@ from src import db
 
 
 
-class Restuarant(db.Model):
+class restaurant(db.Model):
     __tablename__ = "restaurants"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    restuarant= db.Column(db.String(128), nullable=False)
+    restaurant= db.Column(db.String(128), nullable=False)
     cuisine = db.Column(db.String(128), nullable=False)
     
    
-    def __init__(self, restuarant, cuisine):
-        self.restuarant= restuarant
-        self.cuisine = cuisine
+    def __init__(self, restaurant, cuisine):
+        self.restaurant= restaurant
+        self.cuisine= cuisine
 
