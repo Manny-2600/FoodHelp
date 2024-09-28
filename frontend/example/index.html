@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #login-form,
+        #restaurant-search {
+            display: none;
+        }
+
+        #restaurant-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Restaurant Finder</h1>
+
+        <!-- Login/Signup Form -->
+        <div id="login-form">
+            <h2>Login</h2>
+            <form id="auth-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required><br><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" required><br><br>
+
+                <button type="button" id="login-btn">Login</button>
+                <button type="button" id="signup-btn">Signup</button>
+            </form>
+        </div>
+
+        <!-- Restaurant Search -->
+        <div id="restaurant-search">
+            <h2>Search Restaurants</h2>
+            <label for="location">Location:</label>
+            <input type="text" id="location" placeholder="Enter location"><br><br>
+
+            <label for="cuisine">Cuisine:</label>
+            <input type="text" id="cuisine" placeholder="Enter cuisine type"><br><br>
+
+            <button type="button" id="search-btn">Search</button>
+
+            <div id="restaurant-list"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
