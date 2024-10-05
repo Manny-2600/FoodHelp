@@ -26,8 +26,10 @@ document.getElementById('login-btn').addEventListener('click', function () {
 });
 
 document.getElementById('signup-btn').addEventListener('click', function () {
+    // TODO: try catch + just say now log in in alert
     authenticate('/auth/register');
 });
+
 
 function authenticate(endpoint) {
     const email = document.getElementById('email').value;
@@ -42,10 +44,11 @@ function authenticate(endpoint) {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.accessToken && data.refreshToken) {
+            // Check for access_token and refresh_token returned from backend
+            if (data.access_token && data.refresh_token) {
                 // Save tokens to local storage
-                localStorage.setItem('accessToken', data.accessToken);
-                localStorage.setItem('refreshToken', data.refreshToken);
+                localStorage.setItem('accessToken', data.access_token);  // Update key to access_token
+                localStorage.setItem('refreshToken', data.refresh_token);  // Update key to refresh_token
                 displayRestaurantSearch();
             } else {
                 alert('Authentication failed');
@@ -56,10 +59,41 @@ function authenticate(endpoint) {
         });
 }
 
+
+// // Handle restaurant search
+// document.getElementById('search-btn').addEventListener('click', function () {
+//     // const location = document.getElementById('location').value;
+//     const cuisine = document.getElementById('cuisine').value;
+
+//     const accessToken = localStorage.getItem('accessToken');
+
+//     if (!accessToken) {
+//         alert('Please log in first.');
+//         return;
+//     }
+
+//     // fetch(`http://localhost:5000/api/restaurants?location=${location}&cuisine=${cuisine}`, {
+//     // TODO: convert cuisine space to + char
+
+//     fetch(`http://localhost:5000/api/restaurants/${cuisine}`, {
+//         method: 'GET',
+//         headers: {
+//             'Authorization': `Bearer ${accessToken}`
+//         }
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             displayRestaurants(data);
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+// });
+
 // Handle restaurant search
 document.getElementById('search-btn').addEventListener('click', function () {
-    const location = document.getElementById('location').value;
-    const cuisine = document.getElementById('cuisine').value;
+    // const location = document.getElementById('location').value;
+    let cuisine = document.getElementById('cuisine').value;
 
     const accessToken = localStorage.getItem('accessToken');
 
@@ -68,7 +102,10 @@ document.getElementById('search-btn').addEventListener('click', function () {
         return;
     }
 
-    fetch(`http://localhost:5000/api/restaurants?location=${location}&cuisine=${cuisine}`, {
+    // Convert spaces in cuisine to `+`
+    cuisine = cuisine.replace(/\s+/g, '+');
+
+    fetch(`http://localhost:5000/restaurants/${cuisine}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`

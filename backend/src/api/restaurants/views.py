@@ -101,9 +101,12 @@ class RestaurantsSearches(Resource):
         # parser.add_argument("cuisine", type=str, required=False)
 
         # args = parser.parse_args()
-        # cuisine = args.get("restaurant_cuisine", "")
+        # cuisine2 = args.get("restaurant_cuisine", "")
+        # print(cuisine2)
 
-        # print("Searching by ", restaurant_cuisine)
+        # # print("Searching by ", restaurant_cuisine)
+        # print("searching...")
+
         cuisine = restaurant_cuisine.replace("+", " ")
         print("Searching by ", cuisine)
         res = get_top_restaurants_by_cuisine(cuisine)
