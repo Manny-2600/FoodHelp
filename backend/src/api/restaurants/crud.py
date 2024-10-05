@@ -44,6 +44,10 @@ def get_top_restaurants_by_cuisine(cuisine):
 
     # Sort the restaurant list by their average rating
     # We'll use the `get_rating_by_id` function to get the average rating of each restaurant
+    print("Restaurants: ", restaurant_list)
+    print(restaurant_list[0].id)
+    print(get_rating_by_id(restaurant_list[0].id))
+
     sorted_restaurants = sorted(
         restaurant_list,
         key=lambda restaurant: get_rating_by_id(restaurant.id),

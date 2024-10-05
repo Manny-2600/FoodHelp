@@ -1,5 +1,5 @@
 from flask import request
-from flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource, fields, reqparse
 
 
 from src.api.restaurants.crud import (  # isort:skip
@@ -94,14 +94,17 @@ class Restaurants(Resource):
 
 class RestaurantsSearches(Resource):
     @restaurants_namespace.marshal_with(restaurant, as_list=True)
-    def get(self, place_types):
+    def get(self, restaurant_cuisine):
         """Return nearby restaurants of specific type."""
-        parser = reqparse.RequestParser()
-        parser.add_argument("cuisine", type=str, required=False)
 
-        args = parser.parse_args()
-        cuisine = args.get("cuisine", "")
+        # parser = reqparse.RequestParser()
+        # parser.add_argument("cuisine", type=str, required=False)
 
+        # args = parser.parse_args()
+        # cuisine = args.get("restaurant_cuisine", "")
+
+        # print("Searching by ", restaurant_cuisine)
+        cuisine = restaurant_cuisine.replace("+", " ")
         print("Searching by ", cuisine)
         res = get_top_restaurants_by_cuisine(cuisine)
 
