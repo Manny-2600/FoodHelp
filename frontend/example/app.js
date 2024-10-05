@@ -144,7 +144,7 @@ function displayRestaurants(restaurants) {
 
     restaurants.forEach(restaurant => {
         const restaurantItem = document.createElement('div');
-        restaurantItem.innerHTML = `<h3>${restaurant.name}</h3><p>${restaurant.address}</p>`;
+        restaurantItem.innerHTML = `<h3>${restaurant.name}: ${restaurant.cuisine}</h3>`;
         restaurantList.appendChild(restaurantItem);
     });
 }
