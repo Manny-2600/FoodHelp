@@ -1,219 +1,150 @@
-// app.js
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Check if user is authenticated
-    if (isAuthenticated()) {
-        showSearch();
+// Check if user is authenticated
+window.onload = function () {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+        displayRestaurantSearch();
     } else {
-        showLogin();
+        displayLoginForm();
     }
+};
 
-    // Event listeners for switching between login and register
-    document.getElementById('show-register').addEventListener('click', function (event) {
-        event.preventDefault();
-        showRegister();
-    });
+// Display login form
+function displayLoginForm() {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('restaurant-search').style.display = 'none';
+}
 
-    document.getElementById('show-login').addEventListener('click', function (event) {
-        event.preventDefault();
-        showLogin();
-    });
+// Display restaurant search form
+function displayRestaurantSearch() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('restaurant-search').style.display = 'block';
+}
 
-    // Event listener for login form
-    document.getElementById('login-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        login();
-    });
-
-    // Event listener for register form
-    document.getElementById('register-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        register();
-    });
-
-    // Event listener for search form
-    document.getElementById('search-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        searchRestaurants();
-    });
-
-    // Event listener for logout button
-    document.getElementById('logout-button').addEventListener('click', function () {
-        logout();
-    });
+// Handle login/signup
+document.getElementById('login-btn').addEventListener('click', function () {
+    authenticate('/auth/login');
 });
 
-function isAuthenticated() {
-    return localStorage.getItem('access_token') !== null;
-}
+// document.getElementById('signup-btn').addEventListener('click', function () {
+//     // TODO: try catch + just say now log in in alert
+//     authenticate('/auth/register');
+// });
 
-function showLogin() {
-    document.getElementById('login-container').style.display = 'block';
-    document.getElementById('register-container').style.display = 'none';
-    document.getElementById('search-container').style.display = 'none';
-}
 
-function showRegister() {
-    document.getElementById('login-container').style.display = 'none';
-    document.getElementById('register-container').style.display = 'block';
-    document.getElementById('search-container').style.display = 'none';
-}
+document.getElementById('signup-btn').addEventListener('click', function () {
+    try {
+        authenticate('/auth/register');
+        alert('Now log in');
+    } catch (error) {
+        console.error(error);
+        // alert('Signup failed. Please try again.');
+    }
+    alert('Now log in');
+});
 
-function showSearch() {
-    document.getElementById('login-container').style.display = 'none';
-    document.getElementById('register-container').style.display = 'none';
-    document.getElementById('search-container').style.display = 'block';
-}
 
-function login() {
-    var email = document.getElementById('login-email').value;
-    var password = document.getElementById('login-password').value;
+function authenticate(endpoint) {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-    fetch('http://localhost:5000/auth/login', {
+    fetch(`http://localhost:5000${endpoint}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email: email, password: password })
+        body: JSON.stringify({ email, password })
     })
-        .then(function (response) {
-            if (!response.ok) {
-                return response.json().then(function (data) {
-                    throw new Error(data.message || 'Login failed');
-                });
+        .then(response => response.json())
+        .then(data => {
+            // Check for access_token and refresh_token returned from backend
+            if (data.access_token && data.refresh_token) {
+                // Save tokens to local storage
+                localStorage.setItem('accessToken', data.access_token);  // Update key to access_token
+                localStorage.setItem('refreshToken', data.refresh_token);  // Update key to refresh_token
+                displayRestaurantSearch();
+            } else {
+                alert('Authentication failed');
             }
-            return response.json();
         })
-        .then(function (data) {
-            localStorage.setItem('access_token', data.access_token);
-            localStorage.setItem('refresh_token', data.refresh_token);
-            showSearch();
-        })
-        .catch(function (error) {
-            alert(error.message);
+        .catch(error => {
+            console.error('Error:', error);
         });
 }
 
-function register() {
-    var username = document.getElementById('signup-name').value;
-    var email = document.getElementById('signup-email').value;
-    var password = document.getElementById('signup-password').value;
 
-    fetch('http://localhost:5000/auth/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: username,
-            email: email,
-            password: password
-        })
-    })
-        .then(function (response) {
-            if (!response.ok) {
-                return response.json().then(function (data) {
-                    throw new Error(data.message || 'Registration failed');
-                });
-            }
-            return response.json();
-        })
-        .then(function (data) {
-            localStorage.setItem('access_token', data.access_token);
-            localStorage.setItem('refresh_token', data.refresh_token);
-            showSearch();
-        })
-        .catch(function (error) {
-            alert(error.message);
-        });
-}
+// // Handle restaurant search
+// document.getElementById('search-btn').addEventListener('click', function () {
+//     // const location = document.getElementById('location').value;
+//     const cuisine = document.getElementById('cuisine').value;
 
-function searchRestaurants() {
-    var location = document.getElementById('location').value;
-    var cuisine = document.getElementById('cuisine').value;
+//     const accessToken = localStorage.getItem('accessToken');
 
-    var accessToken = localStorage.getItem('access_token');
+//     if (!accessToken) {
+//         alert('Please log in first.');
+//         return;
+//     }
 
-    return fetch(`http://localhost:5000/api/restaurants?location=${encodeURIComponent(location)}&cuisine=${encodeURIComponent(cuisine)}`, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + accessToken
-        }
-    })
-        .then(function (response) {
-            if (response.status === 401) {
-                // Unauthorized, try refreshing token
-                return refreshToken().then(function (success) {
-                    if (success) {
-                        // Retry original request
-                        return searchRestaurants();
-                    } else {
-                        throw new Error('Session expired. Please login again.');
-                    }
-                });
-            } else if (!response.ok) {
-                return response.json().then(function (data) {
-                    throw new Error(data.message || 'Error fetching restaurants');
-                });
-            }
-            return response.json();
-        })
-        .then(function (data) {
-            displayResults(data);
-        })
-        .catch(function (error) {
-            alert(error.message);
-        });
-}
+//     // fetch(`http://localhost:5000/api/restaurants?location=${location}&cuisine=${cuisine}`, {
+//     // TODO: convert cuisine space to + char
 
-function displayResults(restaurants) {
-    var resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
+//     fetch(`http://localhost:5000/api/restaurants/${cuisine}`, {
+//         method: 'GET',
+//         headers: {
+//             'Authorization': `Bearer ${accessToken}`
+//         }
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             displayRestaurants(data);
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+// });
 
-    if (restaurants.length === 0) {
-        resultsDiv.innerHTML = '<p>No restaurants found.</p>';
+// Handle restaurant search
+document.getElementById('search-btn').addEventListener('click', function () {
+    // const location = document.getElementById('location').value;
+    let cuisine = document.getElementById('cuisine').value;
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+        alert('Please log in first.');
         return;
     }
 
-    var ul = document.createElement('ul');
+    // Convert spaces in cuisine to `+`
+    cuisine = cuisine.replace(/\s+/g, '+');
 
-    restaurants.forEach(function (restaurant) {
-        var li = document.createElement('li');
-        li.textContent = restaurant.name + ' - ' + restaurant.address;
-        ul.appendChild(li);
-    });
-
-    resultsDiv.appendChild(ul);
-}
-
-function refreshToken() {
-    var refreshToken = localStorage.getItem('refresh_token');
-
-    return fetch('http://localhost:5000/auth/refresh', {
-        method: 'POST',
+    fetch(`http://localhost:5000/restaurants/${cuisine}`, {
+        method: 'GET',
         headers: {
-            'Authorization': 'Bearer ' + refreshToken
+            'Authorization': `Bearer ${accessToken}`
         }
     })
-        .then(function (response) {
-            if (!response.ok) {
-                return false;
-            }
-            return response.json();
+        .then(response => response.json())
+        .then(data => {
+            displayRestaurants(data);
         })
-        .then(function (data) {
-            localStorage.setItem('access_token', data.access_token);
-            localStorage.setItem('refresh_token', data.refresh_token);
-            return true;
-        })
-        .catch(function () {
-            logout();
-            return false;
+        .catch(error => {
+            console.error('Error:', error);
         });
-}
+});
 
-function logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    showLogin();
+// Display list of restaurants
+function displayRestaurants(restaurants) {
+    const restaurantList = document.getElementById('restaurant-list');
+    restaurantList.innerHTML = '';
+
+    if (restaurants.length === 0) {
+        restaurantList.innerHTML = '<p>No restaurants found.</p>';
+        return;
+    }
+
+    restaurants.forEach(restaurant => {
+        const restaurantItem = document.createElement('div');
+        restaurantItem.innerHTML = `<h3>${restaurant.name}: ${restaurant.cuisine}</h3>`;
+        restaurantList.appendChild(restaurantItem);
+    });
 }

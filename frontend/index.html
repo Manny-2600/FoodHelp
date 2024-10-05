@@ -1,75 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodHelp</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet" href="about.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">FoodHelp</a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login&signup.html">Login or Signup</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="search-bar">
-            <div class="container">
-                <input type="text" placeholder="Find: Restaurants, Coffee, etc.">
-                <input type="text" placeholder="Near: City, State or Zip">
-                <button>Search</button>
-            </div>
-        </section>
-
-        <section class="results">
-            <div class="container">
-                <h2>Top Rated Places</h2>
-                <div class="card">
-                    <img src="https://via.placeholder.com/150" alt="Place Image">
-                    <div class="card-content">
-                        <h3>Restaurant Name</h3>
-                        <p>★★★★★</p>
-                        <p>Location: City, State</p>
-                        <p>Description of the restaurant.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://via.placeholder.com/150" alt="Place Image">
-                    <div class="card-content">
-                        <h3>Restaurant Name</h3>
-                        <p>★★★★★</p>
-                        <p>Location: City, State</p>
-                        <p>Description of the restaurant.</p>
-                    </div>
-                </div>
-                 Repeat the above .card div for more places 
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 FoodHelp. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
-</html>  -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,8 +21,6 @@
         #restaurant-list {
             margin-top: 20px;
         }
-
-        /* Additional styling from both pages can go here */
     </style>
 </head>
 
@@ -114,20 +40,14 @@
         </div>
     </header>
 
-    <main>
-        <!-- Search Bar -->
-        <section class="search-bar">
-            <div class="container">
-                <input type="text" placeholder="Search cuisine">
-                <!-- <input type="text" placeholder="Find: Restaurants, Coffee, etc."> -->
-                <!-- <input type="text" placeholder="Near: City, State or Zip"> -->
-                <button>Search</button>
-            </div>
-        </section>
+    <div id="app">
+        <h1>Restaurant Finder</h1>
 
-        <!-- Login/Signup Form -->
+
+
+
         <div id="login-form" class="container">
-            <h2>Login</h2>
+            <h2>Login/Signup Form</h2>
             <form id="auth-form">
                 <label for="email">Email:</label>
                 <input type="email" id="email" required><br><br>
@@ -136,15 +56,15 @@
                 <input type="password" id="password" required><br><br>
 
                 <button type="button" id="login-btn">Login</button>
+                <br />
                 <button type="button" id="signup-btn">Signup</button>
             </form>
         </div>
 
-        <!-- Restaurant Search Section -->
-        <section id="restaurant-search" class="container">
+        <Restaurant Search <div id="restaurant-search">
             <h2>Search Restaurants</h2>
-            <label for="location">Location:</label>
-            <input type="text" id="location" placeholder="Enter location"><br><br>
+            <!-- <label for="location">Location:</label> -->
+            <!-- <input type="text" id="location" placeholder="Enter location"><br><br> -->
 
             <label for="cuisine">Cuisine:</label>
             <input type="text" id="cuisine" placeholder="Enter cuisine type"><br><br>
@@ -152,46 +72,10 @@
             <button type="button" id="search-btn">Search</button>
 
             <div id="restaurant-list"></div>
-        </section>
-
-        <!-- Top Rated Places -->
-        <section class="results">
-            <div class="container">
-                <h2>Top Rated Places</h2>
-                <div class="card">
-                    <img src="https://via.placeholder.com/150" alt="Place Image">
-                    <div class="card-content">
-                        <h3>Restaurant Name</h3>
-                        <p>★★★★★</p>
-                        <p>Location: City, State</p>
-                        <p>Description of the restaurant.</p>
-                    </div>
-                </div>
-                <!-- Repeat the above .card div for more places -->
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 FoodHelp. All rights reserved.</p>
-        </div>
-    </footer>
+    </div>
+    </div>
 
     <script src="app.js"></script>
-    <script>
-        // Toggle login/signup form visibility
-        document.getElementById('login-signup-link').addEventListener('click', function () {
-            document.getElementById('login-form').style.display = 'block';
-            document.getElementById('restaurant-search').style.display = 'none';
-        });
-
-        // Example logic to switch to restaurant search after login (this can be modified based on your backend)
-        document.getElementById('login-btn').addEventListener('click', function () {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('restaurant-search').style.display = 'block';
-        });
-    </script>
 </body>
 
 </html>
