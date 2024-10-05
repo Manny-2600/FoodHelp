@@ -25,9 +25,21 @@ document.getElementById('login-btn').addEventListener('click', function () {
     authenticate('/auth/login');
 });
 
+// document.getElementById('signup-btn').addEventListener('click', function () {
+//     // TODO: try catch + just say now log in in alert
+//     authenticate('/auth/register');
+// });
+
+
 document.getElementById('signup-btn').addEventListener('click', function () {
-    // TODO: try catch + just say now log in in alert
-    authenticate('/auth/register');
+    try {
+        authenticate('/auth/register');
+        alert('Now log in');
+    } catch (error) {
+        console.error(error);
+        // alert('Signup failed. Please try again.');
+    }
+    alert('Now log in');
 });
 
 
